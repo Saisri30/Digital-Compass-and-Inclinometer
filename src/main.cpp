@@ -27,7 +27,8 @@ void calibrate()
   float pitchSum = 0, rollSum = 0;
   int samples = 200;
 
-  for (int i = 0; i < samples; i++) {
+  for (int i = 0; i < samples; i++) 
+  {
     sensors_event_t a, g, temp;
     mpu.getEvent(&a, &g, &temp);
 
@@ -35,8 +36,8 @@ void calibrate()
     float ay = a.acceleration.y;
     float az = a.acceleration.z;
 
-    pitchSum += atan2(ax, sqrt(ay*ay + az*az)) * 180.0 / PI;
-    rollSum  += atan2(ay, sqrt(ax*ax + az*az)) * 180.0 / PI;
+    pitchSum += atan2(ay, sqrt(ax*ax + az*az)) * 180.0 / PI;
+    rollSum  += atan2(ax, sqrt(ay*ay + az*az)) * 180.0 / PI;
     delay(5);
   }
 
@@ -116,8 +117,9 @@ void loop() {
   float ay = a.acceleration.y;
   float az = a.acceleration.z;
 
-  float pitch = atan2(ax , sqrt(ay*ay + az*az)) * 180.0 / PI  - pitchOffset;  //To calculate pitch angle(Tilt forward/backward)
-  float roll = atan2(ay, sqrt(ax*ax + az*az)) * 180.0 / PI   - rollOffset;  //To calculate roll angle(Tilt left/right)
+
+  float pitch = atan2(ay, sqrt(ax*ax + az*az)) * 180.0 / PI - pitchOffset;  //To calculate pitch angle(Tilt forward/backward)
+  float roll  = atan2(ax, sqrt(ay*ay + az*az)) * 180.0 / PI - rollOffset;   //To calculate roll angle(Tilt left/right)
 
   float heading = atan2(-ay,ax) * 180.0/PI; // To calculate the compass angle
   if(heading < 0)
